@@ -124,9 +124,10 @@
 				// index %= 2;
 			},5000);
 
+			let rootView = document.body;
 			var initCanvasSlideshow1 = new CanvasSlideshow({
-				stageWidth: window.innerWidth,
-				stageHeight: window.innerHeight,
+				stageWidth: rootView.getBoundingClientRect().width,
+				stageHeight: rootView.getBoundingClientRect().height,
 				fullScreen: false,
 				// sprites: spriteImagesSrc,
 				sprites: [
@@ -140,8 +141,8 @@
 				id: 'the-renderer2',
 			});
 			var initCanvasSlideshow2 = new CanvasSlideshow({
-				stageWidth: window.innerWidth,
-				stageHeight: window.innerHeight,
+				stageWidth: rootView.getBoundingClientRect().width,
+				stageHeight: rootView.getBoundingClientRect().height,
 				fullScreen: false,
 				// sprites: spriteImagesSrc,
 				sprites: [
