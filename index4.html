@@ -34,7 +34,7 @@
 			</symbol>
 		</svg>
 		<main class="site-wrapper">
-			<div class="content content--fixed">
+			<!-- <div class="content content--fixed">
 				<header class="codrops-header">
 					<div class="codrops-links">
 						<a class="codrops-icon codrops-icon--prev" href="https://tympanus.net/Development/SlicedDualImageLayout/" title="Previous Demo"><svg class="icon icon--arrow"><use xlink:href="#icon-arrow"></use></svg></a>
@@ -55,38 +55,41 @@
 					<h3 class="pater__title">​Get feedback from your website visitors</h3>
 					<p class="pater__description">Now you can get instant visual feedback from your website visitors. <strong>Learn more</strong></p>
 				</a>
-			</div>
+			</div> -->
 			<div class="content">
 				<div class="slide-wrapper">
 					<div class="slide-item">
-						<img src="img/10.jpg" class="slide-item__image">
+						<img src="//d2v4tz4zvhrua.cloudfront.net/manual_uploads/20181008/spiderweb/spiderweb1.png" class="slide-item__image">
 					</div>
 					<div class="slide-item">
-						<img src="img/11.jpg" class="slide-item__image">
+						<img src="//d2v4tz4zvhrua.cloudfront.net/manual_uploads/20181008/spiderweb/spiderweb2.png" class="slide-item__image">
 					</div>
+					<!--
 					<div class="slide-item">
 						<img src="img/12.jpg" class="slide-item__image">
-					</div>			
+					</div>
+					 -->
 				</div>
-				<button class="scene-nav scene-nav--prev" data-nav="previous"><svg class="icon icon--arrow-nav-prev"><use xlink:href="#icon-arrow-nav"></use></svg></button>
-				<button class="scene-nav scene-nav--next" data-nav="next"><svg class="icon icon--arrow-nav-next"><use xlink:href="#icon-arrow-nav"></use></svg></button>
+				<button style="display:none;" class="scene-nav scene-nav--prev" data-nav="previous"><svg class="icon icon--arrow-nav-prev"><use xlink:href="#icon-arrow-nav"></use></svg></button>
+				<button style="display:none;" class="scene-nav scene-nav--next" data-nav="next"><svg class="icon icon--arrow-nav-next"><use xlink:href="#icon-arrow-nav"></use></svg></button>
 			</div>
 		</main>
 		<script src="js/demo.js"></script>
 		<script src="js/pixi.min.js"></script>
-		<script src="js/TweenMax.min.js"></script>
+		<!-- <script src="js/TweenMax.min.js"></script> -->
 		<script src="js/main4.js"></script>
 		<script src="js/imagesloaded.pkgd.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
 		<script>
 			imagesLoaded(document.body, () => document.body.classList.remove('loading'));
-			
+
 			var spriteImages = document.querySelectorAll( '.slide-item__image' );
 			var spriteImagesSrc = [];
 			var texts = [];
 
 			for ( var i = 0; i < spriteImages.length; i++ ) {
 				var img = spriteImages[i];
-				// Set the texts you want to display to each slide 
+				// Set the texts you want to display to each slide
 				// in a sibling element of your image and edit accordingly
 				if ( img.nextElementSibling ) {
 					texts.push(img.nextElementSibling.innerHTML);
@@ -95,13 +98,61 @@
 				}
 				spriteImagesSrc.push( img.getAttribute('src' ) );
 			}
-      
-			var initCanvasSlideshow = new CanvasSlideshow({
-				sprites: spriteImagesSrc,
+
+			let index = 0;
+			let tl = anime.timeline()
+			setInterval(()=>{
+				// document.querySelectorAll( '.scene-nav' )[0].click();
+				tl.add({
+					targets: '#the-renderer1',
+					opacity: 0,
+					duration: 1000,
+					offset: 0,
+				}).add({
+					targets: '#the-renderer2',
+					opacity: 1,
+					duration: 1000,
+					offset: 1000,
+				}).add({
+					targets: '#the-renderer1',
+					opacity: 1,
+					duration: 1000,
+					offset: 2000,
+				})
+				;
+				// index += 1;
+				// index %= 2;
+			},5000);
+
+			var initCanvasSlideshow1 = new CanvasSlideshow({
+				stageWidth: window.innerWidth,
+				stageHeight: window.innerHeight,
+				fullScreen: false,
+				// sprites: spriteImagesSrc,
+				sprites: [
+					// '//d2v4tz4zvhrua.cloudfront.net/manual_uploads/20181008/spiderweb/spiderweb1.png',
+					'//d2v4tz4zvhrua.cloudfront.net/manual_uploads/20181008/spiderweb/spiderweb2.png',
+				],
 				displacementImage: 'img/dmaps/2048x2048/ripple.jpg',
 				autoPlay: true,
 				autoPlaySpeed: [0.1, 0.1],
-				centerSprites: false
+				centerSprites: true,
+				id: 'the-renderer2',
+			});
+			var initCanvasSlideshow2 = new CanvasSlideshow({
+				stageWidth: window.innerWidth,
+				stageHeight: window.innerHeight,
+				fullScreen: false,
+				// sprites: spriteImagesSrc,
+				sprites: [
+					// '//d2v4tz4zvhrua.cloudfront.net/manual_uploads/20181008/spiderweb/spiderweb2.png',
+					'//d2v4tz4zvhrua.cloudfront.net/manual_uploads/20181008/spiderweb/spiderweb1.png',
+				],
+				displacementImage: 'img/dmaps/2048x2048/ripple.jpg',
+				autoPlay: true,
+				autoPlaySpeed: [0.1, 0.1],
+				centerSprites: true,
+				id: 'the-renderer1',
 			});
 		</script>
 	</body>
